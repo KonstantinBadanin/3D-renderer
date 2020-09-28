@@ -122,9 +122,9 @@ namespace _3DRenderer
                 //new Sphere(new Coords(-620, 100, 950), 100, Color.Pink, 100,0.2,1.1),
                 new Sphere(new Coords(450, 50, 800), 100, Color.Red, 500,0.5,2.5),
                 new Sphere(new Coords(50, 350, 900), 150, Color.Green, 500,0.3,1.1),
-                new Sphere(new Coords(50, 100, 1500), 70, Color.Red, 500,0.3,1.5),
+                new Sphere(new Coords(50, 100, 1500), 70, Color.Pink, 500,0.3,1.5),
                 new Sphere(new Coords(0, -1000, 1000), 950, Color.Yellow, 25,0.6,3),
-                new Polygonal(@"C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\test\cvv.fbx",Color.Blue, 500,0.1,1.5)
+                new Polygonal(@"C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\test\cvv.fbx",Color.Blue, 500,0.8,1.5)
                 //new Sphere(new Coords(500, 350, 1000), 49.9, Color.FromArgb(255,255,255), -1,0)
                 //new Plane(0,0.001,0.001,-2,Color.Red,-1,1)
             };
@@ -139,7 +139,7 @@ namespace _3DRenderer
                 //new Point(new Coords(650, 500, 25), 0.4),
                 //new Point(new Coords(600, 500, 25), 0.4),
                 //new Point(new Coords(550, 500, 25), 0.4),
-                new Ambient(0.7),
+                new Ambient(0.4),
             };
 
         private static Color GetMixedColor(Color a, Color b, double reflOrTransp)
@@ -278,12 +278,12 @@ namespace _3DRenderer
             return Color.FromArgb(255, a1, a2, a3);
         }
 
-        private static Coords BuildResultVector(Coords incoming_ray_unit, double cos_alpha, Coords normal_unit, double sin_gamma, bool ray_in)
+        private static Coords BuildResultVector(Coords incomingRayUnit, double cosAlpha, Coords normalUnit, double sinGamma, bool rayIn)
         {
             double eps = 0.001;
-            incoming_ray_unit /= cos_alpha;
-            normal_unit = ray_in ? -normal_unit : normal_unit;
-            Coords border_unit = incoming_ray_unit + normal_unit;
+            incomingRayUnit /= cosAlpha;
+            normalUnit = rayIn ? -normalUnit : normalUnit;
+            Coords border_unit = incomingRayUnit + normalUnit;
             border_unit /= border_unit.Lenght();
             border_unit = double.IsNaN(border_unit.X) ? new Coords() : border_unit;
             var k = border_unit.Lenght();
@@ -291,9 +291,9 @@ namespace _3DRenderer
             {
                 throw new Exception();
             }
-            double cos_gamma = Math.Sqrt(1 - sin_gamma * sin_gamma);
+            double cos_gamma = Math.Sqrt(1 - sinGamma * sinGamma);
             cos_gamma = (border_unit == new Coords()) ? 1 : cos_gamma;
-            return sin_gamma * border_unit - cos_gamma * normal_unit;
+            return sinGamma * border_unit - cos_gamma * normalUnit;
         }
 
         private static Tuple<Coords, WarpState> WarpRay(Coords incoming_ray_unit, Coords normal_unit, double coef, bool ray_in)
@@ -512,7 +512,7 @@ namespace _3DRenderer
                                 //if ((i > 482) && (i < 484) && (j > 731) && (j < 733))
                                 //if ((i > 478) && (i < 480) && (j > 788) && (j < 790))
                                 //if ((i > 418) && (i < 420) && (j >740) && (j < 742))
-                                //if((i==1199)&&(j==67))
+                                //if((i==510)&&(j==375))
                                 {
                                 List<Coords> tmp1 = new List<Coords>
                         {

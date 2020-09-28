@@ -81,6 +81,8 @@ namespace _3DRenderer
                     Coords pointMoved = hitPoint - verts[0];
                     double beta = (pointMoved.Y * e1.X - e1.Y * pointMoved.X) / (e2.Y * e1.X - e1.Y * e2.X);
                     double alpha = (pointMoved.X - e2.X * beta) / e1.X;
+                    alpha = (double.IsNaN(alpha) || double.IsInfinity(alpha)) ? (pointMoved.Y - e2.Y * beta) / e1.Y : alpha;
+                    alpha = (double.IsNaN(alpha) || double.IsInfinity(alpha)) ? (pointMoved.Z - e2.Z * beta) / e1.Z : alpha;
                     double sum = alpha + beta;
                     if ((alpha * beta > 0) && (sum <= 1) && (sum >= 0))
                     {
@@ -88,7 +90,8 @@ namespace _3DRenderer
                         if (t1 < tMin)
                         {
                             tMin = t1;
-                            normal = e1.VectProd(e2);
+                            //normal = e1.VectProd(e2);
+                            normal = new Coords(tmp.A, tmp.B, tmp.C);
                             normal /= normal.Lenght();
                         }
                     }
