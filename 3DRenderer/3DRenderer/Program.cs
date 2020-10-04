@@ -153,10 +153,10 @@ namespace _3DRenderer
             return Color.FromArgb(k, l, m);
         }
 
-        private static void WrapTraceRay(object a)
+        private static void WrapTraceRay(object rayData)
         {
             bool ray_in = false;
-            Proxy obj = (a is Proxy) ? a as Proxy : null;
+            Proxy obj = (rayData is Proxy) ? rayData as Proxy : null;
             for (int l = 0; l < obj.ListsOrigins.Count(); l++)
             {
                 int i = 0; int k = 0; int j = 0;
@@ -183,13 +183,20 @@ namespace _3DRenderer
             return refl_corrected_unit;
         }
 
-        private static Color TraceRayUnit(RayInfo ray, double tMin, double tMax, int it, int jt)
+        private static Model GetClosestModelAndDistanceToIt(RayInfo ray, double tMin, double tMax, ref double closestT, ref Coords normalForPolygonal)
         {
-            Coords normalForPolygonal = new Coords();
             Model closestModel = null;
-            double closestT = (ray.In) ?
+            closestT = (ray.In) ?
                 ClosestIntersection(ray.Origin, ray.Direction, tMin, tMax, ref Scene, ref closestModel, ref normalForPolygonal) :
                 ClosestIntersection(ray.Origin, ray.Direction, 0.0001, tMax, ref Scene, ref closestModel, ref normalForPolygonal);
+            return closestModel;
+        }
+
+        private static Color TraceRayUnit(RayInfo ray, double tMin, double tMax, int it, int jt)
+        {
+            double closestT = 0;
+            Coords normalForPolygonal = new Coords();
+            Model closestModel = GetClosestModelAndDistanceToIt(ray, tMin, tMax, ref closestT, ref normalForPolygonal);
             if (closestModel == null)
             {
                 return Color.Black;

@@ -90,7 +90,6 @@ namespace _3DRenderer
                         if (t1 < tMin)
                         {
                             tMin = t1;
-                            //normal = e1.VectProd(e2);
                             normal = new Coords(tmp.A, tmp.B, tmp.C);
                             normal /= normal.Lenght();
                         }
@@ -126,106 +125,6 @@ namespace _3DRenderer
                     //Protection from second mesh.
                 }
             }
-        }
-    }
-
-    enum Quarter
-    {
-        First,
-        Second,
-        Third,
-        Fourth
-    }
-
-    class Ellipsoid : Sphere
-    {
-        public Coords Center2 { get; private set; }
-        public Coords SmallSemiaxis1 { get; private set; }
-
-        public void SetSmallSemiaxis1(double length, double x, double y)
-        {
-            if (!(length < Radius))
-                throw new ArgumentException(nameof(length) + " must be less then " + nameof(Radius));
-            Coords focal_vector = Center - Center2;
-            Coords factor = new Coords(x, y, 0);
-            double product = factor.ScalarProd(focal_vector);
-            double eps = 0.0001;
-            Coords result = new Coords();
-            if ((focal_vector.Z > eps) && (focal_vector.Z < -eps))
-            {
-                double z = -product / focal_vector.Z;
-                result = new Coords(x, y, z);
-            }
-            else
-            {
-                if ((product < eps) && (product > -eps))
-                    result = new Coords(x, y, 1);
-                else
-                    throw new ArgumentException("invalid " + nameof(x) + " and " + nameof(y));
-            }
-            result /= result.Lenght();
-            SmallSemiaxis1 = length * result;
-        }
-
-        public override void Relocate(Coords offset)
-        {
-            Center += offset ?? throw new ArgumentNullException(paramName: nameof(offset));
-            Center2 += offset;
-        }
-
-        public override void IntersectRayModel(Coords origin, Coords direction, ref double t1, ref double t2, ref Coords normal)
-        {
-            //TO DO
-            double big_semiaxis = Radius;
-            double focal_parameter = (Center - Center2).Lenght() / 2;
-            Coords focal_vector = Center - Center2;
-            Coords focal_vector_unit = focal_vector / focal_vector.Lenght();
-            Vector focal_canonic = new Vector(new Coords(-focal_parameter / 2, 0, 0), focal_vector);
-            Coords small_semiaxis_1_canonic = new Coords(0, 0, SmallSemiaxis1.Lenght());
-            Quarter alpha_q, gamma_q;
-            //if (focal_vector_unit.X * focal_vector_unit.Z < 0)
-            //{
-            //    k = "alpha in 0 to pi/2";
-            //    j = (focal_vector_unit.Y < 0) ? (focal_vector_unit.Z > 0) ? "gamma in -pi to -pi/2" : "gamma in -pi/2 to 0" : (focal_vector_unit.Z > 0) ? "gamma in pi/2 to pi" : "gamma in 0 to pi/2";
-            //}
-            //else
-            //{
-            //    k = "alpha in -pi/2 to 0";
-            //    j = (focal_vector_unit.Y < 0) ? (focal_vector_unit.Z < 0) ? "gamma in -pi to -pi/2" : "gamma in -pi/2 to 0" : (focal_vector_unit.Z < 0) ? "gamma in pi/2 to pi" : "gamma in 0 to pi/2";
-            //}
-            List<Coords> Mx = new List<Coords>()
-            {
-                new Coords(1,0,0),
-                new Coords(0,0,0),
-                new Coords(0,0,0)
-            };
-            List<Coords> Myz = new List<Coords>()
-            {
-                new Coords(focal_vector_unit.X,0,0),
-                new Coords(focal_vector_unit.Y,0,0),
-                new Coords(focal_vector_unit.Z,0,0)
-            };
-            double small_semiaxis_2 = Math.Sqrt(big_semiaxis * big_semiaxis - focal_parameter * focal_parameter);
-            small_semiaxis_2 = small_semiaxis_2 == double.NaN ? 0 : small_semiaxis_2;
-            if (small_semiaxis_2 == 0)
-                throw new InvalidOperationException("bad ellipse: small axis has 0 length");
-        }
-
-        public Coords GetUnitNormal(Coords hit_point)
-        {
-            _ = hit_point ?? throw new ArgumentNullException(paramName: nameof(hit_point));
-            Coords k = hit_point - Center;
-            k /= k.Lenght();
-            return k;
-        }
-
-        public Ellipsoid(double small_semiaxis, double x, double y, Coords center1, Coords center2, double radius, Color color, int specularity, double reflection, double warpCoef) : base(center1, radius, color, specularity, reflection, warpCoef)
-        {
-            Center2 = center2 ?? throw new ArgumentNullException(paramName: nameof(center2));
-            double focal_parameter = (Center - Center2).Lenght() / 2;
-            SetSmallSemiaxis1(small_semiaxis, x, y);
-            if (Radius <= focal_parameter)
-                throw new ArgumentException("(" + nameof(radius) + ">focal parameter) must be true");
         }
     }
 
