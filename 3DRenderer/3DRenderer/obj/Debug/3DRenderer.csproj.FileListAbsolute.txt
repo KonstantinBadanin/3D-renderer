@@ -24,3 +24,16 @@ C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.csproj.Cor
 C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.csproj.CopyComplete
 C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.exe
 C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.pdb
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\bin\Debug\3DRenderer.exe.config
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\bin\Debug\3DRenderer.exe
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\bin\Debug\3DRenderer.pdb
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\bin\Debug\AssimpNet.dll
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\bin\Debug\OpenTK.dll
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\bin\Debug\AssimpNet.xml
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\bin\Debug\OpenTK.pdb
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\bin\Debug\OpenTK.xml
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.csprojAssemblyReference.cache
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.csproj.CoreCompileInputs.cache
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.csproj.CopyComplete
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.exe
+C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.pdb

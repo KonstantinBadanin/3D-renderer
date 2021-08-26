@@ -124,7 +124,7 @@ namespace _3DRenderer
                 new Sphere(new Coords(50, 350, 900), 150, Color.Green, 500,0.3,1.1),
                 new Sphere(new Coords(50, 100, 1500), 70, Color.Pink, 500,0.3,1.5),
                 new Sphere(new Coords(0, -1000, 1000), 950, Color.Yellow, 25,0.6,3),
-                new Polygonal(@"C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\test\cvv.fbx",Color.Blue, 500,0.8,1.5)
+                new Polygonal(@"C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\test\cvv.fbx",Color.Cyan, 500,0.8,1.5)
                 //new Sphere(new Coords(500, 350, 1000), 49.9, Color.FromArgb(255,255,255), -1,0)
                 //new Plane(0,0.001,0.001,-2,Color.Red,-1,1)
             };
@@ -139,7 +139,7 @@ namespace _3DRenderer
                 //new Point(new Coords(650, 500, 25), 0.4),
                 //new Point(new Coords(600, 500, 25), 0.4),
                 //new Point(new Coords(550, 500, 25), 0.4),
-                new Ambient(0.4),
+                new Ambient(0.9),
             };
 
         private static Color GetMixedColor(Color a, Color b, double reflOrTransp)
