@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a3d7fdee-58d9-45e7-b2df-b196f2b77988": {
+      "ProjectGuid": "a3d7fdee-58d9-45e7-b2df-b196f2b77988",
+      "DisplayName": "3DRenderer",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Прочие файлы",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 1
+}

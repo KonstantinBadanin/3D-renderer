@@ -19,7 +19,6 @@ C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\bin\Debug\OpenTK.dll
 C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\bin\Debug\AssimpNet.xml
 C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\bin\Debug\OpenTK.pdb
 C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\bin\Debug\OpenTK.xml
-C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.csprojAssemblyReference.cache
 C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.csproj.CoreCompileInputs.cache
 C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.csproj.CopyComplete
 C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.exe
@@ -37,3 +36,5 @@ C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRen
 C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.csproj.CopyComplete
 C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.exe
 C:\Users\bkl\source\repos\repo\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.pdb
+C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.csproj.AssemblyReference.cache
+C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\obj\Debug\3DRenderer.csproj.SuggestedBindingRedirects.cache

@@ -124,7 +124,7 @@ namespace _3DRenderer
                 new Sphere(new Coords(50, 350, 900), 150, Color.Green, 500,0.3,1.1),
                 new Sphere(new Coords(50, 100, 1500), 70, Color.Pink, 500,0.3,1.5),
                 new Sphere(new Coords(0, -1000, 1000), 950, Color.Yellow, 25,0.6,3),
-                new Polygonal(@"C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\test\cvv.fbx",Color.Cyan, 500,0.8,1.5)
+                new Polygonal(@"C:\Users\kaste\3D-renderer\3DRenderer\3DRenderer\test\8.fbx",Color.Cyan, 500,0.8,1.5)
                 //new Sphere(new Coords(500, 350, 1000), 49.9, Color.FromArgb(255,255,255), -1,0)
                 //new Plane(0,0.001,0.001,-2,Color.Red,-1,1)
             };
@@ -159,9 +159,9 @@ namespace _3DRenderer
             Proxy obj = (rayData is Proxy) ? rayData as Proxy : null;
             for (int l = 0; l < obj.ListsOrigins.Count(); l++)
             {
+                //Supersampling.
                 int i = 0; int k = 0; int j = 0;
                 for (int m = 0; m < obj.ListsOrigins[l].Count(); m++)
-                //Supersampling.
                 {
                     Color a1 = TraceRayUnit(
                         new RayInfo(obj.ListsOrigins[l][m].Origin, obj.ListsOrigins[l][m].Direction, obj.Limit, ray_in),
@@ -169,6 +169,11 @@ namespace _3DRenderer
                     i += a1.R; k += a1.G; j += a1.B;
                 }
                 _thread_pool.Add(obj.ListsCorners[l], Color.FromArgb(255, i / 4, k / 4, j / 4));
+                ////No Supersampling.
+                //Color a1 = TraceRayUnit(
+                //        new RayInfo(obj.ListsOrigins[l][1].Origin, obj.ListsOrigins[l][1].Direction, obj.Limit, ray_in),
+                //        0, double.PositiveInfinity, obj.CurrentXPosition, obj.CurrentYPosition);
+                //_thread_pool.Add(obj.ListsCorners[l], Color.FromArgb(255, a1.R, a1.G, a1.B));
             }
             return;
         }
@@ -221,7 +226,7 @@ namespace _3DRenderer
             }
             else
             {
-                var warped = WarpRay(ray.Direction, normal_unit, closestModel.WarpCoef, ray.In);
+                var warped = WarpRay(ray.Direction, normal_unit, closestModel.WarpCoef, ray.In, jt ,it);
                 switch (warped.Item2)
                 {
                     case WarpState.FullInnerReflection:
@@ -285,14 +290,36 @@ namespace _3DRenderer
             return Color.FromArgb(255, a1, a2, a3);
         }
 
-        private static Coords BuildResultVector(Coords incomingRayUnit, double cosAlpha, Coords normalUnit, double sinGamma, bool rayIn)
+        private static Coords BuildResultVector(Coords incomingRayUnit, double cosAlpha, Coords normalUnit, double sinGamma, bool rayIn, int jt, int it)
         {
             double eps = 0.001;
-            incomingRayUnit /= cosAlpha;
+            if (double.IsNaN((incomingRayUnit).X) || !((incomingRayUnit.Lenght() < 1 + eps) && (incomingRayUnit.Lenght() > 1 - eps)))
+            {
+                int y;
+                y = 10;
+            }
+            if (double.IsNaN((normalUnit).X) || !((normalUnit.Lenght() < 1 + eps) && (normalUnit.Lenght() > 1 - eps)))
+            {
+                int y;
+                y = 10;
+            }
+            var incomingRay = incomingRayUnit / cosAlpha;
             normalUnit = rayIn ? -normalUnit : normalUnit;
-            Coords border_unit = incomingRayUnit + normalUnit;
-            border_unit /= border_unit.Lenght();
+            Coords border_dir = incomingRay + normalUnit;
+            var border_unit = border_dir / border_dir.Lenght();
+            if (double.IsNaN((border_unit).X) || !((border_unit.Lenght() < 1 + eps) && (border_unit.Lenght() > 1 - eps)))
+            {
+                int y;
+                y = 10;
+            }
             border_unit = double.IsNaN(border_unit.X) ? new Coords() : border_unit;
+            var a = border_unit.ScalarProd(normalUnit);
+            if ((a > eps) || (a < -eps))
+            {
+                border_dir = -incomingRay + normalUnit;
+                border_unit = border_dir / border_dir.Lenght();
+                border_unit = double.IsNaN(border_unit.X) ? new Coords() : border_unit;
+            }
             var k = border_unit.Lenght();
             if ((border_unit != new Coords()) && !((k < 1 + eps) && (k > 1 - eps)))
             {
@@ -300,10 +327,16 @@ namespace _3DRenderer
             }
             double cos_gamma = Math.Sqrt(1 - sinGamma * sinGamma);
             cos_gamma = (border_unit == new Coords()) ? 1 : cos_gamma;
-            return sinGamma * border_unit - cos_gamma * normalUnit;
+            var res_unit =  sinGamma * border_unit - cos_gamma * normalUnit;
+            if (double.IsNaN((res_unit).X) || !((res_unit.Lenght() < 1 + eps) && (res_unit.Lenght() > 1 - eps)))
+            {
+                int y;
+                y = 10;
+            }
+            return res_unit;
         }
 
-        private static Tuple<Coords, WarpState> WarpRay(Coords incoming_ray_unit, Coords normal_unit, double coef, bool ray_in)
+        private static Tuple<Coords, WarpState> WarpRay(Coords incoming_ray_unit, Coords normal_unit, double coef, bool ray_in, int jt, int it)
         {
             if (!((incoming_ray_unit.Lenght() < 1.001) && (incoming_ray_unit.Lenght() > 0.999)))
             {
@@ -324,7 +357,7 @@ namespace _3DRenderer
             {
                 if (sin_alpha < coef)
                 {
-                    Coords warped_ray_unit = BuildResultVector(incoming_ray_unit, cos_alpha, normal_unit, sin_gamma, ray_in);
+                    Coords warped_ray_unit = BuildResultVector(incoming_ray_unit, cos_alpha, normal_unit, sin_gamma, ray_in, jt, it);
                     if (double.IsNaN((warped_ray_unit).X) || !((warped_ray_unit.Lenght() < 1 + eps) && (warped_ray_unit.Lenght() > 1 - eps)))
                     {
                         throw new Exception();
@@ -339,7 +372,7 @@ namespace _3DRenderer
             }
             else
             {
-                Coords warped_ray_unit = BuildResultVector(incoming_ray_unit, cos_alpha, normal_unit, sin_gamma, ray_in);
+                Coords warped_ray_unit = BuildResultVector(incoming_ray_unit, cos_alpha, normal_unit, sin_gamma, ray_in, jt, it);
                 if (double.IsNaN((warped_ray_unit).X) || !((warped_ray_unit.Lenght() < 1 + eps) && (warped_ray_unit.Lenght() > 1 - eps)))
                 {
                     throw new Exception();
@@ -513,13 +546,14 @@ namespace _3DRenderer
                         for (int i = 0; i < x_resolution; i++)
                         {
                             it = i;
-                                //if ((i > 423) && (i < 425) && (j > 1140) && (j < 1142))
+                                //if ((i > -1) && (i < 601) && (j > -1) && (j < 500))
+                                //if ((i > 600) && (i < 1201) && (j > -1) && (j < 2000))
                                 //if ((i > 423) && (i < 425) && (j > 1132) && (j < 1134))
                                 //if ((i > 473) && (i < 475) && (j > 731) && (j < 733))
                                 //if ((i > 482) && (i < 484) && (j > 731) && (j < 733))
                                 //if ((i > 478) && (i < 480) && (j > 788) && (j < 790))
                                 //if ((i > 418) && (i < 420) && (j >740) && (j < 742))
-                                //if((i==510)&&(j==375))
+                                //if((i==1199)&&(j==314))
                                 {
                                 List<Coords> tmp1 = new List<Coords>
                         {
