@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30413.136
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3DRenderer", "3DRenderer\3DRenderer.csproj", "{A3D7FDEE-58D9-45E7-B2DF-B196F2B77988}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServer", "GrpcServer\GrpcServer.csproj", "{21D8A679-A958-454B-A10D-3F4168EC4EBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcClient", "GrpcClient\GrpcClient.csproj", "{45CAC1F3-628E-47EF-B67D-61E3671F000C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{A3D7FDEE-58D9-45E7-B2DF-B196F2B77988}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3D7FDEE-58D9-45E7-B2DF-B196F2B77988}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3D7FDEE-58D9-45E7-B2DF-B196F2B77988}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21D8A679-A958-454B-A10D-3F4168EC4EBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21D8A679-A958-454B-A10D-3F4168EC4EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21D8A679-A958-454B-A10D-3F4168EC4EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21D8A679-A958-454B-A10D-3F4168EC4EBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45CAC1F3-628E-47EF-B67D-61E3671F000C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45CAC1F3-628E-47EF-B67D-61E3671F000C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45CAC1F3-628E-47EF-B67D-61E3671F000C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45CAC1F3-628E-47EF-B67D-61E3671F000C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
