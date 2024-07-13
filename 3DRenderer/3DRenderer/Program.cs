@@ -504,6 +504,12 @@ namespace _3DRenderer
 
         public static void Main(string[] args)
         {
+            RenderScene();
+            return;
+        }
+
+        private static void RenderScene()
+        {
             using (var g = new GameWindow())
             {
                 g.Load += (sender, e) =>
@@ -546,15 +552,16 @@ namespace _3DRenderer
                         for (int i = 0; i < x_resolution; i++)
                         {
                             it = i;
-                                //if ((i > -1) && (i < 601) && (j > -1) && (j < 500))
-                                //if ((i > 600) && (i < 1201) && (j > -1) && (j < 2000))
-                                //if ((i > 423) && (i < 425) && (j > 1132) && (j < 1134))
-                                //if ((i > 473) && (i < 475) && (j > 731) && (j < 733))
-                                //if ((i > 482) && (i < 484) && (j > 731) && (j < 733))
-                                //if ((i > 478) && (i < 480) && (j > 788) && (j < 790))
-                                //if ((i > 418) && (i < 420) && (j >740) && (j < 742))
-                                //if((i==1199)&&(j==314))
-                                {
+                            //for debug purposes
+                            //if ((i > -1) && (i < 601) && (j > -1) && (j < 500))
+                            //if ((i > 600) && (i < 1201) && (j > -1) && (j < 2000))
+                            //if ((i > 423) && (i < 425) && (j > 1132) && (j < 1134))
+                            //if ((i > 473) && (i < 475) && (j > 731) && (j < 733))
+                            //if ((i > 482) && (i < 484) && (j > 731) && (j < 733))
+                            //if ((i > 478) && (i < 480) && (j > 788) && (j < 790))
+                            //if ((i > 418) && (i < 420) && (j >740) && (j < 742))
+                            //if((i==1199)&&(j==314))
+                            {
                                 List<Coords> tmp1 = new List<Coords>
                         {
                                 new Coords(Xbegin + i * Xstep, Ybegin + j * Ystep, 1),
@@ -576,8 +583,7 @@ namespace _3DRenderer
                         List<List<Vector>> Rays1 = Rays;
                         List<List<Coords>> Vertices1 = Vertices;
                         Proxy Tmp = new Proxy(Rays1, Vertices1, double.PositiveInfinity, recurs_limit, it, j);
-                            //ThreadPool.QueueUserWorkItem(WrapTraceRay, Tmp);//T
-                            Thread thread = new Thread(WrapTraceRay);
+                        Thread thread = new Thread(WrapTraceRay);
                         thread.Start(Tmp);
                         ThreadSeq.Add(thread);
                         Console.WriteLine(j + "\n");
@@ -592,12 +598,12 @@ namespace _3DRenderer
                         }
                     }
                     g.SwapBuffers();
-                        //Scene[0].Relocate(new Coords(-6.2533, 0, 0));
-                        //Scene[2].Relocate(new Coords(8.6666, 0, 0));
-                    };
+                    //relocate possibility
+                    //Scene[0].Relocate(new Coords(-6.2533, 0, 0));
+                    //Scene[2].Relocate(new Coords(8.6666, 0, 0));
+                };
                 g.Run(60, 60);
             }
-            return;
         }
     }
 }
